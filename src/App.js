@@ -1,27 +1,18 @@
-import { Routes, Route } from 'react-router-dom';
-import About from './Components/Pages/About';
-import Blog from './Components/Pages/Blog';
-import Contact from './Components/Pages/Contact';
-import Home from './Components/Pages/Home';
-import NotFound from './Components/Pages/NotFound';
-import SinglePost from './Components/Pages/SinglePost'
-import Layout from './Components';
-import './App.css'
+import "./App.css";
+import { useSelector, useDispatch } from "react-redux";
+import { decrement,increment,reset} from './redux-toolkityy/CounterSlice'
 function App() {
+  const count=useSelector(state=>state.count.c)
+  const dispatch=useDispatch()
   return (
     <>
-     <Routes>
-     <Route path='/' element={<Layout/>}>
-     <Route path='/' element={<Home/>}/>
-     <Route path='/about' element={<About/>}/>
-     <Route path='/contact' element={<Contact/>}/>
-     <Route path='/blog' element={<Blog/>}/>
-     <Route path='/blog/:id' element={<SinglePost/>}/>
-     <Route path='*' element={<NotFound/>}/>
-     </Route>
-     </Routes>
-
-   </>
+      <div>
+   {count}
+   <button onClick={()=>dispatch(decrement())}>-</button>
+   <button onClick={()=>dispatch(increment())}>+</button>
+   <button onClick={()=>dispatch(reset())}>reset</button>
+      </div>
+    </>
   );
 }
 
