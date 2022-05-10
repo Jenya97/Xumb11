@@ -1,17 +1,31 @@
 import "./App.css";
-import { useSelector, useDispatch } from "react-redux";
-import { decrement,increment,reset} from './redux-toolkityy/CounterSlice'
+// import CounterOne from "./CounterOne";
+// import CounterTwo from "./CounterTwo";
+// import Counter from "./Counter";
+import {useSelector, useDispatch} from 'react-redux';
+import {asyncDecrementCreate,asyncIncrementCreate} from './redux/Counter/Counter'
+import {fetchUsers} from './redux/Users/UsersReducer';
+
 function App() {
-  const count=useSelector(state=>state.count.c)
-  const dispatch=useDispatch()
+ const count=useSelector(state=>state.countReducer.count);
+ const users=useSelector(state=>state.userReducer.users);
+ 
+ const dispatch=useDispatch()
   return (
     <>
-      <div>
+   {/* <Counter render={(counter,increment)=>(
+     <CounterOne counter={counter} increment={increment}/>
+   )}/>
+     <Counter render={(counter,increment)=>(
+     <CounterTwo counter={counter} increment={increment}/>
+   )}/> */}
    {count}
-   <button onClick={()=>dispatch(decrement())}>-</button>
-   <button onClick={()=>dispatch(increment())}>+</button>
-   <button onClick={()=>dispatch(reset())}>reset</button>
-      </div>
+   <button onClick={()=>dispatch(asyncDecrementCreate())}>-</button>
+   <button onClick={()=>dispatch(asyncIncrementCreate())}>+</button>
+   <button onClick={()=>dispatch(fetchUsers())}>click</button>
+   {users.length>0 &&  users.map(i=>(
+     <div key={i.id}>{i.name}</div>
+   ))}
     </>
   );
 }
